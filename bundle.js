@@ -128,8 +128,7 @@
 	};
 
 	Game.prototype.wrap = function(pos){
-	  pos[0] = pos[0]%Game.DIM_X;
-	  pos[1] = pos[1]%Game.DIM_Y;
+	  return [((pos[0] % Game.DIM_X)), ((pos[1] % Game.DIM_Y))];
 	};
 
 	window.Game = Game;
@@ -169,7 +168,9 @@
 
 /***/ },
 /* 4 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
+
+	const Game = __webpack_require__(2);
 
 	function MovingObject(){}
 
@@ -207,8 +208,8 @@
 
 
 	MovingObject.prototype.move = function(){
-	  this.pos[0] += this.vel[0];
-	  this.pos[1] += this.vel[1];
+	  let newPos = [this.pos[0] += this.vel[0], this.pos[1] += this.vel[1]];
+	  this.pos = this.game.wrap(newPos);
 	};
 
 	module.exports = MovingObject;
